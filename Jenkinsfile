@@ -3,18 +3,23 @@ pipeline {
 
     environment {
         NODE_VERSION = '18'
+        NVM_DIR = "$HOME/.nvm"
     }
 
     stages {
         stage('Setup') {
             steps {
-                // Install Node.js
-                sh """
-                    export NVM_DIR="\$HOME/.nvm"
-                    [ -s "\$NVM_DIR/nvm.sh" ] && . "\$NVM_DIR/nvm.sh"
-                    nvm install \${NODE_VERSION}
-                    nvm use \${NODE_VERSION}
-                """
+                sh '''
+                    if [ ! -d "$NVM_DIR" ]; then
+                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+                    fi
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm install ${NODE_VERSION}
+                    nvm use ${NODE_VERSION}
+                    node -v
+                    npm -v
+                '''
             }
         }
 
@@ -41,15 +46,23 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo 'Add your deployment commands here'
-                // Example: sh 'aws s3 sync dist/ s3://your-bucket-name/'
+                echo 'Executing deployment process...'
+                // Example deployment command
+                // sh 'aws s3 sync dist/ s3://your-bucket-name/'
             }
         }
     }
 
     post {
         always {
+            echo 'Cleaning workspace...'
             cleanWs()
+        }
+        success {
+            echo 'Build and deployment successful ✅'
+        }
+        failure {
+            echo 'Build failed ❌'
         }
     }
 }
