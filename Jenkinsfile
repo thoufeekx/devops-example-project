@@ -26,14 +26,18 @@ pipeline {
         stage('SetupNodeJS') {
             steps {
                 sh '''
-                    sudo apt update
-                    sudo apt install -y nodejs npm
+                    export NVM_DIR="$HOME/.nvm"
+                    if [ ! -d "$NVM_DIR" ]; then
+                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+                    fi
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm install ${NODE_VERSION}
+                    nvm use ${NODE_VERSION}
                     node -v
                     npm -v
                 '''
             }
         }
-
 
         stage('Install Dependencies') {
             steps {
