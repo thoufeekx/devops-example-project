@@ -46,7 +46,7 @@
         <h2>ℹ️ About This Project</h2>
         <p>This example project demonstrates modern DevOps practices including:</p>
         <ul>
-          <li>Continuous Integration practices</li>
+          <li>Updated: Continuous Integration practices</li>
           <li>Automated Testing procedures</li>
           <li>Deployment automation</li>
           <li>Modern frontend development with Vue.js</li>
