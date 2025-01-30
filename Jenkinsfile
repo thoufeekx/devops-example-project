@@ -23,7 +23,7 @@ pipeline {
             }
         }
 
-        stage('Setup') {
+        stage('SetupNodeJS') {
             steps {
                 sh '''
                     sudo apt update
