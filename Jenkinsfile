@@ -10,27 +10,13 @@ pipeline {
         stage('Setup') {
             steps {
                 sh '''
-                    if [ ! -d "$NVM_DIR" ]; then
-                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-                    fi
-                    export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm install ${NODE_VERSION}
-                    nvm use ${NODE_VERSION}
-                    node -v
-                    npm -v
-                '''
-            }
-        }
-
-        stage('SetupNodeJS') {
-            steps {
-                sh '''
                     export NVM_DIR="$HOME/.nvm"
                     if [ ! -d "$NVM_DIR" ]; then
                         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
                     fi
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+                    export PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
                     nvm install ${NODE_VERSION}
                     nvm use ${NODE_VERSION}
                     node -v
@@ -41,19 +27,37 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+                    export PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+                    npm ci
+                '''
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+                    export PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+                    npm run build
+                '''
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm run test:unit || true'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+                    export PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+                    npm run test:unit || true
+                '''
             }
         }
 
