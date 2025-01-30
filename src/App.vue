@@ -48,7 +48,7 @@
         <ul>
           <li>Updated: Continuous Integration practices</li>
           <li>Updated: Automated Testing procedures</li>
-          <li>Deployment automation</li>
+          <li>Updated: Deployment automation</li>
           <li>Modern frontend development with Vue.js</li>
         </ul>
       </div>
