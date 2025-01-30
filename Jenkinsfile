@@ -23,6 +23,18 @@ pipeline {
             }
         }
 
+        stage('Setup') {
+            steps {
+                sh '''
+                    sudo apt update
+                    sudo apt install -y nodejs npm
+                    node -v
+                    npm -v
+                '''
+            }
+        }
+
+
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
