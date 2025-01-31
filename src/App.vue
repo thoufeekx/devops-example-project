@@ -49,7 +49,7 @@
           <li>Updated: Continuous Integration practices</li>
           <li>Updated: Automated Testing procedures</li>
           <li>Updated: Deployment automation</li>
-          <li>Modern frontend development with Vue.js</li>
+          <li>Updated:Modern frontend development with Vue.js</li>
         </ul>
       </div>
     </main>
