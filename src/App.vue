@@ -25,7 +25,7 @@
       </div>
 
       <div class="card">
-        <h2>📝 Latest Updates</h2>
+        <h2>📝 Updated: Latest Updates</h2>
         <div class="updates-list">
           <div class="update-item">
             <span class="date">29 Jan 2025</span>
