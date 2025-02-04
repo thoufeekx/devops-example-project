@@ -55,7 +55,7 @@
     </main>
 
     <footer>
-      <p>Updated Project Example Project - Created for DevOps Testing</p>
+      <p>Updated Project Example Project - Created for DevOps Testing Updated</p>
     </footer>
   </div>
 </template>
